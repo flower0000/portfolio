@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dish_photo: MyString
+  time: MyString
+  money: 1
+
+two:
+  dish_photo: MyString
+  time: MyString
+  money: 1

@@ -1,0 +1,2 @@
+class HowToMake < ApplicationRecord
+end

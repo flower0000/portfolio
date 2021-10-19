@@ -4,12 +4,79 @@
     <title>CircleCook</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <header class="border-bottom">
+    <!--containerではなくその外側のheader領域にかけてあげることである程度外の位置に下線が引ける-->
+
+      <nav class="navbar navbar-expand-lg">
+    <!--navbarは子要素が横並びになる-->
+    <!--あくまでヘッダーの領域（箱の大きさ，文字色，背景色を決めているだけ）-->
+    <!--navbarとは他のnavbar関連のクラスを使用できるようにする-->
+
+
+        <div class="container">
+          <%= link_to "CircleCook", root_path, class:"navbar-brand p-8 text-dark" %>
+      <!--navbar-brandはサイト名を作成するときに使用するclass。左上に配置される感じ？-->
+
+          <% if user_signed_in? %>
+            <ul class="navbar-nav ml-auto list-unstyled">
+  <!--listタグの点（リストマーカー）を削除するにはlist-unstyledを追加する-->
+  <!--mb-3でmarginのbottom部に3の大きさの隙間が入る感じ-->
+              <li class="my-4 ml-4 p-8 btn btn-outline-dark">
+                <%= link_to "マイページ", mypage_path, class:"text-dark" %>
+              </li>
+
+              <li class="my-4 ml-4 p-8 btn btn-outline-dark">
+                <%= link_to "レシピ", root_path, class:"text-dark" %>
+              </li>
+
+              <li class="my-4 ml-4 p-8 btn btn-outline-dark">
+                <%= link_to "新規レシピ投稿", root_path, class:"text-dark" %>
+              </li>
+
+              <li class="my-4 ml-4 p-8 btn btn-outline-dark">
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"text-dark" %>
+              </li>
+            </ul>
+
+          <% else %>
+            <ul class="navbar-nav ml-auto list-unstyled">
+  <!--ml-auto（左寄せ等の移動はnavbar-navもセット使うので覚える）-->
+              <li class="my-4 ml-4 p-8 btn btn-outline-dark">
+                <%= link_to "About", root_path, class:"text-dark" %>
+              </li>
+
+              <li class="my-4 ml-4 p-8 btn btn-outline-dark">
+                <%= link_to "レシピ一覧", root_path, class:"text-dark" %>
+              </li>
+
+              <li class="my-4 ml-4 p-8 btn btn-outline-dark">
+                <%= link_to "新規登録", new_user_registration_path, class:"text-dark" %>
+              </li>
+
+              <li class="my-4 ml-4 p-8 btn btn-outline-dark">
+                <%= link_to "ログイン", new_user_session_path, class:"text-dark" %>
+              </li>
+            </ul>
+          <% end %>
+        </div>
+      </nav>
+    </header>
+
+    <main style="min-height: 777px">
+    <!--777px最低限空間をつくる．これを超える要素が入ってきた場合はその大きさに領域は伸びる-->
     <%= yield %>
+    </main>
+
+    <footer class="border-top" style="height: 75px;">
+    <!--空白用。下に75px何もない領域を作成している-->
+    </footer>
+
   </body>
 </html>
