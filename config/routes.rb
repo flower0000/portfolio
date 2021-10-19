@@ -5,7 +5,12 @@ Rails.application.routes.draw do
   #homesコントローラー
   root to: 'homes#top'
   get '/about' => 'homes#about'
-  
-  #usersコントローラー
-  
+
+  #recipeコントローラー(favoritesとreviewsはネストする)
+  resources :recipe do
+    resource :favorites, only: [:create, :destroy]
+  end
+
+  #userコントローラー
+
 end
