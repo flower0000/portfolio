@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <header class="border-bottom">
+    <header class="border-bottom sticky-top">
     <!--containerではなくその外側のheader領域にかけてあげることである程度外の位置に下線が引ける-->
 
       <nav class="navbar navbar-expand-lg">
@@ -29,7 +29,7 @@
   <!--listタグの点（リストマーカー）を削除するにはlist-unstyledを追加する-->
   <!--mb-3でmarginのbottom部に3の大きさの隙間が入る感じ-->
               <li class="my-4 ml-4 p-8 btn btn-outline-dark">
-                <%= link_to "マイページ", mypage_path, class:"text-dark" %>
+                <%= link_to "マイページ", root_path, class:"text-dark" %>
               </li>
 
               <li class="my-4 ml-4 p-8 btn btn-outline-dark">
@@ -53,11 +53,11 @@
             <ul class="navbar-nav ml-auto list-unstyled">
   <!--ml-auto（左寄せ等の移動はnavbar-navもセット使うので覚える）-->
               <li class="my-4 ml-4 p-8 btn btn-outline-dark">
-                <%= link_to "About", root_path, class:"text-dark" %>
+                <%= link_to "About", about_path, class:"text-dark" %>
               </li>
 
               <li class="my-4 ml-4 p-8 btn btn-outline-dark">
-                <%= link_to "検索", mypage_path, class:"text-dark" %>
+                <%= link_to "検索", root_path, class:"text-dark" %>
               </li>
 
               <li class="my-4 ml-4 p-8 btn btn-outline-dark">
