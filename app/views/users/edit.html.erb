@@ -1,0 +1,44 @@
+<div class="container">
+ <h4>会員情報編集</h4>
+    <%= form_with model: @user, url: users_update_path, local:true do |f| %>
+    <table class="table table-borderless mt-3">
+      <tr>
+        <td>
+          会員ID
+        </td>
+        <td>
+          <%= @user.id %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          名前
+        </td>
+        <td>
+           <%= f.text_field :name %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          メールアドレス
+        </td>
+        <td>
+           <%= f.text_field :email %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.submit '編集内容を保存', class: "mt-3 btn btn-success" %>
+        </td>
+      </tr>
+    </table>
+    <% end %>
+</div>
+
+<!--ボタンを押してもエラーも出ない場合は，そもそも機能していない(HTMLの構造がおかしい)ので検証ツールを用いて確認する-->
+<!--formの中にinputがあるかなどを確認する。-->
+<!--tableタグとformは相性が悪い。tableタグはほかの要素と共存できない（入るデータが決まっている(tdなど)）ことがあるため注意-->
+<!--tableタグの中にformがあると不具合が起きるのでtableの外に配置する．文法は間違っていないので注意．-->

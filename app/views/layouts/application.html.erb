@@ -29,7 +29,7 @@
   <!--listタグの点（リストマーカー）を削除するにはlist-unstyledを追加する-->
   <!--mb-3でmarginのbottom部に3の大きさの隙間が入る感じ-->
               <li class="my-4 ml-4 p-8 btn btn-outline-dark">
-                <%= link_to "マイページ", root_path, class:"text-dark" %>
+                <%= link_to "マイページ", mypage_path, class:"text-dark" %>
               </li>
 
               <li class="my-4 ml-4 p-8 btn btn-outline-dark">
@@ -37,11 +37,11 @@
               </li>
 
               <li class="my-4 ml-4 p-8 btn btn-outline-dark">
-                <%= link_to "レシピ", root_path, class:"text-dark" %>
+                <%= link_to "レシピ一覧", recipes_path, class:"text-dark" %>
               </li>
 
               <li class="my-4 ml-4 p-8 btn btn-outline-dark">
-                <%= link_to "新規レシピ投稿", root_path, class:"text-dark" %>
+                <%= link_to "新規レシピ投稿", new_recipe_path, class:"text-dark" %>
               </li>
 
               <li class="my-4 ml-4 p-8 btn btn-outline-dark">
@@ -61,7 +61,7 @@
               </li>
 
               <li class="my-4 ml-4 p-8 btn btn-outline-dark">
-                <%= link_to "レシピ一覧", root_path, class:"text-dark" %>
+                <%= link_to "レシピ一覧", recipes_path, class:"text-dark" %>
               </li>
 
               <li class="my-4 ml-4 p-8 btn btn-outline-dark">

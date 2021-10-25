@@ -7,10 +7,15 @@ Rails.application.routes.draw do
   get '/about' => 'homes#about', as: 'about'
 
   #recipeコントローラー(favoritesとreviewsはネストする)
-  resources :recipe do
+  resources :recipes do
     resource :favorites, only: [:create, :destroy]
   end
 
   #userコントローラー
+  get '/users/mypage' => 'users#show', as: 'mypage'
+  get '/users/edit/data' => 'users#edit', as: 'users_edit' #edit_user_registration_pathとURLがかぶるため/customers/edit→/customers/edit/dataに変更
+  patch 'users' => 'users#update', as: 'users_update'
+  get '/users/check' => 'users#check', as: 'users_check'
+  delete '/users/withdrawal' => 'users#withdrawal', as: 'users_withdrawal'
 
 end

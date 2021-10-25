@@ -1,13 +1,6 @@
 <div class="container">
   <div class="row">
-   <div class="col-lg-12 mx-auto text-center">
-<!--text-centerで領域内で文章を真ん中に持ってくる-->
-      <div class="thumbnail">ようこそ！CircleCookへ!!</div>
-    </div>
-  </div>
-  
-  <div class="row">
-    <% @recipes.each do |recipe| %>
+     <% @recipes.each do |recipe| %>
       <div class="col-lg-4">
         <div>
           <%= link_to recipe_path(recipe.id) do %>
@@ -17,5 +10,4 @@
       </div>
     <% end %>
   </div>
-  
 </div>
