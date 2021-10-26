@@ -59,7 +59,7 @@
       </p>
       <% else %>
       <p>
-        <%= link_to post_image_favorites_path(@recipe.id), method: :post do %>
+        <%= link_to recipe_favorites_path(@recipe.id), method: :post do %>
           ♡<%= @recipe.favorites.count %> いいね
         <% end %>
       </p>
