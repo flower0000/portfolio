@@ -8,7 +8,6 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
     #recipe_ingredientsとhow_to_makesはviewで記述はないが他のモデルのパラメータを同時に保存できている
-
     if @recipe.save
       redirect_to recipe_path(@recipe.id)
     else
