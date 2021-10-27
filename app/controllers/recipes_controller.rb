@@ -36,10 +36,16 @@ class RecipesController < ApplicationController
     @recipes = Recipe.all
   end
 
+  def destroy
+    @recipe = Recipe.find(params[:id])
+    @recipe.destroy
+    redirect_to mypage_path
+  end
+
   private
 
   def recipe_params
-    params.require(:recipe).permit(:time, :money, :dish_photo_id, :dish,
+    params.require(:recipe).permit(:user_id, :time, :money, :dish_photo_id, :dish,
                                   recipe_ingredients_attributes:[:material, :quantity, :_destroy],
                                   how_to_makes_attributes:[:introduction, :order_no, :_destroy])
   end
