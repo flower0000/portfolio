@@ -5,17 +5,18 @@
       <div class="thumbnail">ようこそ！CircleCookへ!!</div>
     </div>
   </div>
-  
+
+  <!--ランキング機能。いいね機能順-->
   <div class="row">
-    <% @recipes.each do |recipe| %>
+    <% @rankings.each.with_index(1) do |ranking, i| %>
       <div class="col-lg-4">
-        <div>
-          <%= link_to recipe_path(recipe.id) do %>
-            <%= attachment_image_tag recipe, :dish_photo, :fill, 300, 300, format: 'jpeg', fallback: "no_image.jpg", size:'300x300' %>
-          <% end %>
-        </div>
+        第<%= i %>位<%= ranking.dish %>
+        <%= link_to recipe_path(ranking.id) do %>
+          <%= attachment_image_tag ranking, :dish_photo, :fill, 300, 300, format: 'jpeg', fallback: "no_image.jpg", size:'300x300' %>
+        <% end %>
       </div>
     <% end %>
   </div>
-  
+  <!--ここまで-->
+
 </div>

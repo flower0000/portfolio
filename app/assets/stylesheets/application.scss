@@ -16,3 +16,8 @@
 @import "bootstrap";
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
+
+body {
+  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+  font-family: sans-serif;
+}

@@ -12,7 +12,7 @@ class Recipe < ApplicationRecord
   attachment :dish_photo
 
 
-  def favorited_by?(user)#ここの書き方を後で復習
+  def favorited_by?(user)#ここの書き方を後で復習→OK
     favorites.where(user_id: user.id).exists?
   end
   #favoritesテーブルの中のuser_idの中にuser.idがいたらtrueを返すの記述
