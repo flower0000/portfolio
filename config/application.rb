@@ -15,5 +15,7 @@ module CircleCook
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    config.time_zone = 'Asia/Tokyo'#表記時間を日本時間に変更
   end
 end

@@ -5,6 +5,7 @@
       <div class="row">
         <div class="col-lg-5">
           <%= f.text_field :dish, class: "form-control mb-3", placeholder: "料理名" %>
+          <br>写真の拡張子はjpegに限ります</br>
           <%= f.attachment_field :dish_photo, class: "mb-3" %><!--dish_photo_idのidは省略．写真投稿用-->
           <%= f.text_field :time, class: "form-control mb-3", placeholder: "所要時間" %>
           <%= f.text_field :money, class: "form-control mb-3", placeholder: "費用" %>

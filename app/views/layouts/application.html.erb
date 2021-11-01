@@ -9,6 +9,10 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/174cba21f6.js" crossorigin="anonymous"></script>
+    <!--★レビュー用-->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.raty.js"></script>
+    <!--ここまで-->
   </head>
 
   <body>
@@ -78,7 +82,7 @@
       </nav>
     </header>
 
-    <main style="min-height: 777px">
+    <main style="min-height: 1000px">
     <!--777px最低限空間をつくる．これを超える要素が入ってきた場合はその大きさに領域は伸びる-->
     <%= yield %>
     </main>

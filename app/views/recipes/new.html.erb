@@ -18,9 +18,15 @@
         <div class="recipe-ingredients">
           <div class="mx-auto">
 
-            <%= f.fields_for :recipe_ingredients do |t| %>
-        <!--fields_forによってform_with内で異なるモデル（今回はRecipeIngredient）を編集することができるようになる。-->
-              <%= render "recipes/recipe_ingredient_fields", f: t %>
+            <%= f.fields_for :recipe_ingredients do |recipe_ingredient| %>
+        <!--fields_forによってform_with内で異なるモデル（今回は:recipe_ingredients）を編集することができるようになる。-->
+
+        <!--@recipeに紐づいている:recipe_ingredientsでデータをすべて取得してrecipe_ingredientに1レコードずつ入れて表示-->
+        <!--_forはeachと似たような処理(繰り返し処理をする)。やっていることはeach同様全レコードデータのうち1レコードずつ値を入れて処理内容を実施．-->
+
+              <%= render "recipes/recipe_ingredient_fields", f: recipe_ingredient %>
+              <!--f: t　ｆは部分テンプレートで使う変数。t(今回はrecipe_ingredienにして入力)は部分テンプレートに渡す変数．-->
+              <!--fの中にrecipe_ingredient。つまりf = recipe_ingredient。これをrenderしている部分テンプレートに渡して処理をする-->
             <% end %>
 
           </div>
@@ -36,6 +42,7 @@
             association_insertion_method: 'before'
             }%>
         <!--link_to_add_associationによってフォームが追加される。-->
+
         <!--association_insertion_node: '#detail-association-insertion-point'
             association_insertion_method: 'after'
             によってフォームの表示位置を指定。-->
@@ -51,6 +58,7 @@
 
             <%= f.fields_for :how_to_makes do |t| %>
         <!--fields_forによってform_with内で異なるモデル（今回はHowToMake）を編集することができるようになる。-->
+        <!---->
               <%= render "recipes/how_to_make_fields", f: t %>
             <% end %>
 
@@ -60,6 +68,8 @@
 
           <div class="col-lg-10 mx-auto mt-3">
 
+            <!--link_to_add_association "+フォームを追加", f, :how_to_makes,のhow_to_makesの意味→空のインスタンスを作成する。アソシエーションの記述の仕方で記入する-->
+            <!--アソシエーションで複数系になっているのでこっちも複数形で書く-->
             <%= link_to_add_association "+フォームを追加", f, :how_to_makes,
             class: "btn btn-secondary btn-block",
             data: {

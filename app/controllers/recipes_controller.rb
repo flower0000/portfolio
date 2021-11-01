@@ -20,6 +20,10 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+    @review = Review.new
+
+    #詳細画面で該当するレビューをすべて表示させる
+    @reviews = Review.where(recipe_id: @recipe.id)
   end
 
   def edit
@@ -30,7 +34,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @recipe.update(recipe_params)
      #recipeとアソシエーションを組んでいるhow_to_makeやrecipe_ingredientsのデータもrecipe_paramsに含まれているため一緒に紐づいているデータも含めて更新される。
-    
+
     #updateももし一つずつデータを更新するなら↓↓↓こうも書ける
     # @recipe.time = params[:recipe][:time]
     # @recipe.money = params[:recipe][:money]
@@ -41,7 +45,7 @@ class RecipesController < ApplicationController
     # @recipe.recipe_ingredients.find(params[:recipe][:recipe_ingredients_attributes][0][:id]).quantity = params[:recipe][:recipe_ingredients_attributes][0][:quantity]
     # @recipe.update
     #ここまで。ただし，recipe_ingredientsやhow_to_makesの記入数が固定されてしまうので現実的ではない。
-    
+
     redirect_to recipe_path(@recipe.id)
   end
 

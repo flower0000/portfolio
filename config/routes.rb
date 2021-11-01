@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   #recipeコントローラー(favoritesとreviewsはネストする)
   resources :recipes do
     resource :favorites, only: [:create, :destroy]
+    resources :reviews
   end
 
   #userコントローラー
