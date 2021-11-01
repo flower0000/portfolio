@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   #homesコントローラー
@@ -18,4 +17,6 @@ Rails.application.routes.draw do
   get '/users/check' => 'users#check', as: 'users_check'
   delete '/users/withdrawal' => 'users#withdrawal', as: 'users_withdrawal'
 
+
+  devise_for :users
 end

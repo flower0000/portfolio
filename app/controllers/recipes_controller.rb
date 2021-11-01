@@ -29,6 +29,19 @@ class RecipesController < ApplicationController
   def update
     @recipe = Recipe.find(params[:id])
     @recipe.update(recipe_params)
+     #recipeとアソシエーションを組んでいるhow_to_makeやrecipe_ingredientsのデータもrecipe_paramsに含まれているため一緒に紐づいているデータも含めて更新される。
+    
+    #updateももし一つずつデータを更新するなら↓↓↓こうも書ける
+    # @recipe.time = params[:recipe][:time]
+    # @recipe.money = params[:recipe][:money]
+    # @recipe.dish_photo_id = params[:recipe][:dish_photo_id]
+    # @recipe.recipe_ingredients.find(params[:recipe][:recipe_ingredients_attributes][0][:id]).material = params[:recipe][:recipe_ingredients_attributes][0][:material]
+    # @recipe.recipe_ingredients.find(params[:recipe][:recipe_ingredients_attributes][0][:id]).quantity = params[:recipe][:recipe_ingredients_attributes][0][:quantity]
+    # @recipe.recipe_ingredients.find(params[:recipe][:recipe_ingredients_attributes][0][:id]).material = params[:recipe][:recipe_ingredients_attributes][0][:material]
+    # @recipe.recipe_ingredients.find(params[:recipe][:recipe_ingredients_attributes][0][:id]).quantity = params[:recipe][:recipe_ingredients_attributes][0][:quantity]
+    # @recipe.update
+    #ここまで。ただし，recipe_ingredientsやhow_to_makesの記入数が固定されてしまうので現実的ではない。
+    
     redirect_to recipe_path(@recipe.id)
   end
 
@@ -46,7 +59,12 @@ class RecipesController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit(:user_id, :time, :money, :dish_photo_id, :dish,
-                                  recipe_ingredients_attributes:[:material, :quantity, :_destroy],
-                                  how_to_makes_attributes:[:introduction, :order_no, :_destroy])
+                                  recipe_ingredients_attributes:[:id, :material, :quantity, :_destroy],
+                                  how_to_makes_attributes:[:id, :introduction, :order_no, :_destroy])
   end
 end
+
+#recipe_ingredients_attributes:の記述の仕方
+#recipeモデルアソシエーションが複数ならrecipe_ingredients(複数形)で記述．_attributesはいつでも複数形。
+#:idもrecipe_ingredientのデータを，どのデータで上書きしたらいいか判断するために必要
+#:_destroyは削除用のボタンの

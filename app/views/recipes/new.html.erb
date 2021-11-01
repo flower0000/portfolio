@@ -9,7 +9,7 @@
           <%= f.attachment_field :dish_photo, class: "mb-3" %><!--dish_photo_idのidは省略．写真投稿用-->
           <%= f.text_field :time, class: "form-control mb-3", placeholder: "所要時間" %>
           <%= f.text_field :money, class: "form-control mb-3", placeholder: "費用" %>
-          <%= f.hidden_field :user_id, value: current_user.id%>
+          <%= f.hidden_field :user_id, value: current_user.id %>
         </div>
       </div>
 
@@ -33,7 +33,7 @@
             class: "btn btn-secondary btn-block",
             data: {
             association_insertion_node: '#detail-association-insertion-point1',
-            association_insertion_method: 'after'
+            association_insertion_method: 'before'
             }%>
         <!--link_to_add_associationによってフォームが追加される。-->
         <!--association_insertion_node: '#detail-association-insertion-point'
@@ -64,7 +64,7 @@
             class: "btn btn-secondary btn-block",
             data: {
             association_insertion_node: '#detail-association-insertion-point2',
-            association_insertion_method: 'after'
+            association_insertion_method: 'before'
             }%>
         <!--link_to_add_associationによってフォームが追加される。-->
         <!--association_insertion_node: '#detail-association-insertion-point'

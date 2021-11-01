@@ -2,16 +2,22 @@
   <div class="row mx-auto">
     <div class="col-4">
       <%= f.text_field :material, class: "form-control", placeholder: "材料" %>
+      <!--渡されたfに入力欄を作成する(データの内容はmaterialカラム)-->
+
+      <!--f.hidden_fieldのようにvalueは記載されてはいないが実際は-->
+      <%#= f.text_field :material, class: "form-control", placeholder: "材料", value: f.materialカラムに入っていたデータ %>
+      <!--のように裏で動いている-->
     </div>
 
     <div class="offset-1 col-3">
       <%= f.text_field :quantity, class: "form-control", placeholder: "分量" %>
     </div>
+    <%= f.hidden_field :id %>
+    <!--valueを指定しない場合は指定したモデルの該当するカラムのデータが入力される今回はrecipe_ingredientモデルのidカラムが該当。書くなら下のようになる-->
+    <%#= f.hidden_field :id, value: f.id %>
 
-    <% if @recipe.nil? %>
-      <div class="offset-1 col-2 px-0">
-        <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>
-      </div>
-    <% end %>
+    <div class="offset-1 col-2 px-0">
+      <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>
+    </div>
   </div>
 </div>

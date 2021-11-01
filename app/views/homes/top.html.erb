@@ -8,6 +8,11 @@
 
   <!--ランキング機能。いいね機能順-->
   <div class="row">
+    <div class="title col-lg-12">
+      いいね♥ランキング
+    </div>
+  </div>
+  <div class="row">
     <% @rankings.each.with_index(1) do |ranking, i| %>
       <div class="col-lg-4">
         第<%= i %>位<%= ranking.dish %>

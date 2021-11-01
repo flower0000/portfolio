@@ -2,12 +2,13 @@ class Recipe < ApplicationRecord
   belongs_to :user, optional: true
   has_many :favorites
   has_many :reviews
-  has_many :how_to_makes, dependent: :destroy
-  has_many :recipe_ingredients, dependent: :destroy
+  has_many :how_to_makes
+  has_many :recipe_ingredients
 
   accepts_nested_attributes_for :recipe_ingredients, :how_to_makes, allow_destroy: true
   #accepts_nested_attributes_forを使用することで、指定したモデルのデータを配列としてパラメーターに含めることができる。
   #つまり、「recipe」と「recipe_ingredients」「how_to_makes」モデルのデータをまとめて保存できるようになる。
+  #allow_destroy: true　→　意味はaccepts_nested_attributes_forを使用した際に dependent: :destroyと同じ意味・役割を持つ
 
   attachment :dish_photo
 

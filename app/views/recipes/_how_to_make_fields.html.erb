@@ -7,10 +7,9 @@
     <div class="offset-1 col-6">
       <%= f.text_area :introduction, class: "form-control", placeholder: "調理手順" %>
     </div>
-    <% if @recipe.nil? %>
-      <div class="offset-1 col-2 px-0">
-        <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>
-      </div>
-    <% end %>
+    <%= f.hidden_field :id %>
+    <div class="offset-1 col-2 px-0">
+      <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>
+    </div>
   </div>
 </div>
