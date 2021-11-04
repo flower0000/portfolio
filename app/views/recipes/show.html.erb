@@ -30,7 +30,7 @@
   <div class="row">
     <table class="table table-bordered">
       <% @recipe.recipe_ingredients.each do |recipe_ingredient| %>
-        <tr class="table-primary">
+        <tr class="bg-white">
 
           <td>
             <%= recipe_ingredient.material %>
@@ -89,6 +89,8 @@
   <div class="review-box">
     <%= form_with model:[@recipe, @review],url: recipe_reviews_path(@recipe.id), local: true  do |f| %>
 <!--ネストしている場合はreviewに紐づいているreviewに投稿するのでモデル部に[@review, @review]で記述-->
+<!--質問：postメソッドだが，ネストしており、urlにrecipe_idの記載があるためidを渡す必要がある？？？→　　-->
+
 
   <!--エラーメッセージ-->
   <%#= render 'layouts/error_messages', model: f.object %>
@@ -169,8 +171,8 @@
 
           <div class="col-lg-12">
             <% if current_user.id == review.user_id %>
-              <%= link_to "レビューを編集",url: edit_recipe_review_path(review.id), class: "btn btn-success" %>
-              <%= link_to "レビューを削除",url: recipe_review_path(review.id), method: :delete, class: "btn btn-danger" %>
+              <%= link_to "レビューを編集", edit_recipe_review_path(@recipe.id, review.id), class: "btn btn-success" %>
+              <%= link_to "レビューを削除", recipe_review_path(@recipe.id, review.id), method: :delete, class: "btn btn-danger" %>
             <% end %>
           </div>
 

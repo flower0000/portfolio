@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+<!--review作成画面-->
+    <div class="review-box mx-auto">
+      <%= form_with model:[@recipe, @review],url: recipe_review_path(@recipe.id, @review.id), local: true  do |f| %>
+<!--ネストしている場合はreviewに紐づいているreviewに投稿するのでモデル部に[@review, @review]で記述-->
+
+  <!--商品コードの送信-->
+        <%= f.hidden_field :recipe_id, value: @recipe.id %>
+
+<!--review★マーク機能はここから-->
+  <!-- 評価 -->
+        <div class="row form-group" id="star">
+          <%= f.label :score,'評価 ', class:'col-lg-3 col-form-label' %>
+          <%= f.hidden_field :score, id: :review_star %>
+        </div>
+
+  <!-- 評価javascript -->
+        <script>
+          $('#star').raty({
+            size     : 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            scoreName: 'review[score]',
+            half: true,
+            score: <%= @review.score %>,
+          });
+        </script>
+  <!--scoreNama: 'モデル[カラム]'で記述して記載-->
+  <!--どこのカラムを使用して★マークを表示させたいか-->
+  <!--ここまでで1セット-->
+
+  <!-- 口コミ -->
+        <div class="row form-group">
+          <%= f.label :comment, '口コミ内容', class:'col-md-3 col-form-label' %>
+          <div class="col-md-9">
+            <%= f.text_area :comment, class: "form-control", rows: "8", placeholder:'口コミ内容がなくても、タイトルと評価のみで投稿できます。まずは投稿してみましょう！投稿してから編集もできますよ！' %>
+          </div>
+        </div>
+
+  <!-- 確認ボタン -->
+        <div class="row form-group justify-content-end">
+          <div class="col-lg-9">
+            <%= f.submit '編集完了', class:"btn btn-success" %>
+            <%= link_to "戻る", recipe_path(@recipe.id), class: "btn btn-primary" %>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+<!--ここまでレビュー用-->
+  </div>
+</div>
