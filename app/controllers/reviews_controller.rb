@@ -4,10 +4,10 @@ class ReviewsController < ApplicationController
     @review.user_id = current_user.id
 
     if @review.save
-      flash[:notice]="レビューに成功しました"
+      flash[:reviewnotice]="レビューに成功しました"
       redirect_to recipe_path(@review.recipe_id)
     else
-      flash[:alert]="レビューに失敗しました"
+      flash[:reviewalert]="レビューに失敗しました"
       redirect_to recipe_path(@review.recipe_id)
     end
 

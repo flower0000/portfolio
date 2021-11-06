@@ -1,0 +1,53 @@
+<div class="container">
+
+ <!--会員一覧-->
+  <div class="col-8 mx-auto">
+  <h3>会員一覧</h3>
+
+   <table class="table table-hover">
+     <thead><!--表のヘッダー-->
+       <tr>
+        <th class="header1 text-center">会員ID</th>
+        <th class="header2 text-center">氏名</th>
+       </tr>
+     </thead>
+
+     <tbody><!--会員ごとのデータをtableで並べていく-->
+      <% if user_signed_in? %>
+
+        <% @users.each do |user| %>
+          <% if current_user.id != user.id %>
+            <tr class="text-center">
+              <td><%= user.id %></td><!--会員IDのデータ-->
+
+              <td><!--氏名のデータ-->
+                <%= link_to other_user_path(user.id) do %>
+                  <%= user.name %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+
+        <% else %>
+          <% @users.each do |user| %>
+
+            <tr class="text-center">
+              <td>
+                <%= user.id %>
+              </td><!--会員IDのデータ-->
+
+              <td><!--氏名のデータ-->
+                <%= link_to other_user_path(user.id) do %>
+                  <%= user.name %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+      <% end %>
+     </tbody>
+
+   </table>
+
+  </div>
+</div>

@@ -10,14 +10,14 @@
 
 <!--review★マーク機能はここから-->
   <!-- 評価 -->
-        <div class="row form-group" id="star">
+        <div class="row form-group" id="star-edit">
           <%= f.label :score,'評価 ', class:'col-lg-3 col-form-label' %>
           <%= f.hidden_field :score, id: :review_star %>
         </div>
 
   <!-- 評価javascript -->
         <script>
-          $('#star').raty({
+          $('#star-edit').raty({
             size     : 36,
             starOff:  '<%= asset_path('star-off.png') %>',
             starOn : '<%= asset_path('star-on.png') %>',
