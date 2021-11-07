@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <h3>ユーザー検索フォーム</h3>
+  </div>
+
+  <div class="row">
+    <%= form_with model: @users, url: search_path, method: :get, local: true do |f| %>
+      <%= f.text_field :name, placeholder:'名前' %>
+      <%= f.submit '検索' %>
+    <% end %>
+  </div>
+  <%# if @users.present? %>
+    <div class="row">
+      <table>
+        <thead>
+          <tr>
+            <th>ユーザー名検索結果一覧</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <%# end %>
+
+  <div class="row" style="margin-top:100px;">
+    <h3 >レシピ検索フォーム</h3>
+  </div>
+
+  <div class="row">
+    <%= form_with model: @recipes, url: search_path, method: :get, local: true do |f| %>
+      <%= f.text_field :dish, placeholder:'料理名' %>
+      <%= f.submit '検索' %>
+    <% end %>
+  </div>
+  <%# if @recipes.present? %>
+    <div class="row">
+      <table>
+        <thead>
+          <tr>
+            <th>レシピ名検索結果一覧</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipes.each do |recipe| %>
+            <tr>
+              <td><%= recipe.dish %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <%# end %>
+</div>

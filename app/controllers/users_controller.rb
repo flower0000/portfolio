@@ -33,6 +33,28 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
+  def search#部分一致による検索(user名)
+    if params[:name].present?
+      @users = User.where('name LIKE ?', "%#{params[:name]}%")
+      #name LIKEと書くことでnameカラムを検索、という意味
+      #?は次の引数"%#{params[:name]}%"を受け取る場所
+      #最終的にはname LIKE "%#{params[:name]}%"となる
+      # %文字% は任意の文字列
+      #結果としてはnameカラムにparams[:name]を含むレコードを探し出す
+      ##{params[:name]}は変数展開
+
+    else
+      @users = User.none
+    end
+
+    if params[:dish].present?
+      @recipes = Recipe.where('name LIKE ?', "%#{params[:dish]}%")
+
+    else
+      @recipes = Recipe.none
+    end
+  end
+
   private
     def user_params
       params.require(:user).permit(:name, :email)

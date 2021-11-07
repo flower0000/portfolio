@@ -13,12 +13,13 @@ Rails.application.routes.draw do
 
   #userコントローラー
   get '/users/mypage' => 'users#show', as: 'mypage'
-  get '/users/:id' => 'users#other_user', as: 'other_user'
+  get '/users/index/:id' => 'users#other_user', as: 'other_user'#deviseのルーティングと被るためindexの文字をかませた
   get '/users' => 'users#index', as: 'users_index'
   get '/users/edit/data' => 'users#edit', as: 'users_edit' #edit_user_registration_pathとURLがかぶるため/customers/edit→/customers/edit/dataに変更
   patch 'users' => 'users#update', as: 'users_update'
   get '/users/check' => 'users#check', as: 'users_check'
   delete '/users/withdrawal' => 'users#withdrawal', as: 'users_withdrawal'
+  get '/users/search/' => 'users#search', as: 'search'#検索用
 
 
   devise_for :users
