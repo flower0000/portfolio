@@ -1,6 +1,6 @@
 <div class="container">
  <h4>会員情報編集</h4>
-    <%= form_with model: @user, url: users_update_path, local:true do |f| %>
+    <%= form_with model: @user, url: user_path(current_user.id), local:true do |f| %>
     <table class="table table-borderless mt-3">
       <tr>
         <td>
