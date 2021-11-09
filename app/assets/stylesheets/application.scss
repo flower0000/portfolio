@@ -21,3 +21,11 @@ body {
   background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
   font-family: sans-serif;
 }
+
+/* raty.jsの星サイズを調整する  */
+/* 下記のように記述することで,star-sizeクラス内のimgタグ限定でという制限がかけられる */
+//.star-size {
+// img {
+//    width: 100%;
+//  }
+//}
