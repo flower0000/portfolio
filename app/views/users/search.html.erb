@@ -4,8 +4,32 @@
   </div>
 
   <div class="row">
+    <%= @users.inspect %>
+    <!--変数の中身を出力-->
+    <!--#<ActiveRecord::Relation []>。取得できる値は無いが、#<ActiveRecord::Relation []>というデータがいる状態-->
+
+    <%= @users.class %>
+    <!--@usersに入っているデータのclass-->
+    <!--classは定数のこと-->
+    <!--定数:大文字で始まる識別子。Rubyの定数の概念を知ること！左辺の大文字から始まる入れ物-->
+    <!--Hoge=1,Hogeは定数-->
+    <!--@users.classでUser::ActiveRecord_Relationが出力される-->
+    <!--ApplicationRecordというclassにActiveRecord_Relationが付随している。なのでApplicationRecordが親に当たる。-->
+    <!--なのUser::ActiveRecord_RelationはApplicationRecordのことなので@users.classと打つとUser::ActiveRecord_Relationが出力される-->
+    <!--class User < ApplicationRecord(user.rbに記載されている)はUserというclassにApplicationRecordというclass(機能)を持たせている-->
+    <!--ApplicationRecordでRailsの機能を使えるようにしている-->
+    <!--gem railsがbundle installされている状態という前提で記述されている。-->
+    <!--例えばこんな機能を提供してくれている。all,find,find_by,whereなど-->
+
+    <%= @users.name %>
+    <!--@usersのclass名を参照-->
+    <!--@users.classはclassを出力，@users.nameはclass名を出力。違うものなので注意すること-->
+
     <%= form_with model: @users, url: search_path, method: :get, local: true do |f| %>
-      <%= f.text_field :name, placeholder:'名前' %>
+    <!--保存しない(getによるページの遷移のみ)ので、モデルの記述が無くてもフォームは作成できる-->
+    <!--そのため.nameがクラスメソッドになってしまうのを防ぐことができる-->
+
+      <%= f.text_field :name, placeholder:'名前', value:"" %><!--value:""で初期値の入力を設定-->
       <%= f.submit '検索' %>
     <% end %>
   </div>

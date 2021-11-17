@@ -20,6 +20,10 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+
+    #レシピ詳細ページでユーザー情報の受け渡し用(フォロー機能で必要)
+    @user = User.find(@recipe.user_id)
+
     @review = Review.new
 
     #詳細画面で該当するレビューをすべて表示させる

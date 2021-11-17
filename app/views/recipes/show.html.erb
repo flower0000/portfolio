@@ -7,20 +7,20 @@
   <div class="row">
     <div class="col-lg-12">
 
-      <div>
-        <%= @recipe.dish %>
+      <div style="font-size: 25px;">
+        レシピ名:<%= @recipe.dish %>
       </div>
 
       <div>
-        <%= attachment_image_tag @recipe, :dish_photo, :fill, 100, 100, format: "jpeg", fallback: "no_image.jpg", size:"100x100" %>
+        <%= attachment_image_tag @recipe, :dish_photo, :fill, 100, 100, format: "jpeg", fallback: "no_image.jpg", size:"300x300" %>
       </div>
 
       <div>
-        <%= @recipe.time %>
+        所要時間:<%= @recipe.time %>
       </div>
 
       <div>
-        費用<%= @recipe.money %>円
+        費用:<%= @recipe.money %>円
       </div>
 
     </div>
@@ -55,7 +55,7 @@
   <% end %>
 
 <!--いいね機能-->
-  <div class="row">
+  <div class="favorite row">
     <% if user_signed_in? %>
 
       <% if @recipe.favorited_by?(current_user) %>
@@ -76,6 +76,20 @@
   </div>
 <!--いいね機能終わり-->
 
+  <!--フォロー部-->
+  <% if user_signed_in? %>
+    <% if current_user.id != @recipe.user_id %>
+      <div class="row">
+        <% if @user.followed_by?(current_user) %>
+          <p><%=link_to "フォロー解除", user_relationships_path(@recipe.user_id), method: :delete, class: "btn btn-danger" %></p>
+        <% else %>
+          <p><%=link_to "フォローする", user_relationships_path(@recipe.user_id), method: :post, class: "btn btn-primary" %></p>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+  <!--フォロー部終わり-->
+
   <% if user_signed_in? %>
     <div class="row">
       <% if @recipe.user_id == current_user.id %>
@@ -87,14 +101,17 @@
 
 <!--review作成画面-->
   <% if user_signed_in? %>
-    <% if @recipe.reviews.exists?(user_id: current_user.id) %>
-      <div style="color:blue;">レビュー済みです</div>
-    <% else %>
-      <div class="review-box">
-        <%= form_with model:[@recipe, @review],url: recipe_reviews_path(@recipe.id), local: true  do |f| %>
+
+    <% if @recipe.user_id != current_user.id %>
+
+      <% if @recipe.reviews.exists?(user_id: current_user.id) %>
+        <div class="review-complete" style="color:blue;">レビュー済みです</div>
+      <% else %>
+        <div class="review-box">
+          <%= form_with model:[@recipe, @review],url: recipe_reviews_path(@recipe.id), local: true  do |f| %>
 <!--ネストしている場合はreviewに紐づいているreviewに投稿するのでモデル部に[@review, @review]で記述-->
 
-<!--質問：postメソッドだが，ネストしており、urlにrecipe_idの記載があるためidを渡す必要がある？？？→　　-->
+<!--質問：postメソッドだが，ネストしており、urlにrecipe_idの記載があるためidを渡す必要がある？？？→あるっぽい-->
 
 
   <!--エラーメッセージ-->
@@ -102,52 +119,54 @@
   <!--エラーハンドリングという内容を調べる-->
 
   <!--商品コードの送信-->
-          <%= f.hidden_field :recipe_id, value: @recipe.id %>
+            <%= f.hidden_field :recipe_id, value: @recipe.id %>
 
 <!--review★マーク機能はここから-->
   <!-- 評価 -->
-          <div class="row form-group" id="star">
-            <%= f.label :score,'評価 ', class:'col-lg-3 col-form-label' %>
-            <%= f.hidden_field :score, id: :review_star %>
-          </div>
+            <div class="row form-group" id="star">
+              <%= f.label :score,'評価 ', class:'col-lg-3 col-form-label' %>
+              <%= f.hidden_field :score, id: :review_star %>
+            </div>
 
   <!-- 評価javascript -->
-          <script>
-            $('#star').raty({
-              size     : 36,
-              starOff:  '<%= asset_path('star-off.png') %>',
-              starOn : '<%= asset_path('star-on.png') %>',
-              starHalf: '<%= asset_path('star-half.png') %>',
-              scoreName: 'review[score]',
-              half: true,
-            });
-          </script>
+            <script>
+              $('#star').raty({
+                size     : 36,
+                starOff:  '<%= asset_path('star-off.png') %>',
+                starOn : '<%= asset_path('star-on.png') %>',
+                starHalf: '<%= asset_path('star-half.png') %>',
+                scoreName: 'review[score]',
+                half: true,
+              });
+            </script>
   <!--scoreNama: 'モデル[カラム]'で記述して記載-->
   <!--どこのカラムを使用して★マークを表示させたいか-->
   <!--ここまでで1セット-->
 
   <!-- 口コミ -->
-          <div class="row form-group">
-            <%= f.label :comment, '口コミ内容 ', class:'col-md-3 col-form-label' %>
-            <div class="col-md-9">
-              <%= f.text_area :comment, class: "form-control", rows: "5", placeholder:'口コミ内容がなくても、タイトルと評価のみで投稿できます。まずは投稿してみましょう！投稿してから編集もできますよ！' %>
+            <div class="row form-group">
+              <%= f.label :comment, '口コミ内容 ', class:'col-md-3 col-form-label' %>
+              <div class="col-md-9">
+                <%= f.text_area :comment, class: "form-control", rows: "5", placeholder:'口コミ内容がなくても、タイトルと評価のみで投稿できます。まずは投稿してみましょう！投稿してから編集もできますよ！' %>
+              </div>
             </div>
-          </div>
 
   <!-- 確認ボタン -->
-          <div class="row form-group justify-content-end">
-            <div class="col-lg-9">
-              <%= f.submit '投稿する', class:"btn btn-success" %>
+            <div class="row form-group justify-content-end">
+              <div class="col-lg-9">
+                <%= f.submit '投稿する', class:"btn btn-success" %>
+              </div>
             </div>
-          </div>
 
-        <% end %>
-      </div>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 <!--ここまでレビュー用-->
 
 <!--レビュー一覧を表示-->
+  <div class="row" style="font-size: 25px;">レビュー一覧</div>
   <div class="review-index">
     <% if @reviews.present? %>
       <% @reviews.each do |review| %>

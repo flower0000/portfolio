@@ -20,25 +20,34 @@ class User < ApplicationRecord
 
 
   #フォロー機能
-  #フォローする側のUserからみたRelationshipをactive_relationship
-  #フォローされる側のUserからみたRelationshipをpassive_relationship
-    # ====================自分がフォローしているユーザーとの関連 ===================================
-  #フォローする側のUserから見て、フォローされる側のUserを(中間テーブルを介して)集める。なので親はfollowing_id(フォローする側)
+  #フォローする側のUserからみたRelationship(中間テーブル)をactive_relationship
+  #フォローされる側のUserからみたRelationship(中間テーブル)をpassive_relationship
   has_many :active_relationships, class_name: "Relationship", foreign_key: :following_id
-  # 中間テーブルを介して「follower」モデルのUser(フォローされた側)を集めることを「followings」と定義
-  has_many :followings, through: :active_relationships, source: :follower
-  # ========================================================================================
+  #active_relationshipsは現時点では無いためここで定義。中間テーブルはRelationshipモデルでることを設定。
+  #relaitonshipsテーブルにアクセスする時、following_idを入口として来てね！」っていう事
 
-  # ====================自分がフォローされるユーザーとの関連 ===================================
-  #フォローされる側のUserから見て、フォローしてくる側のUserを(中間テーブルを介して)集める。なので親はfollower_id(フォローされる側)
+  has_many :followings, through: :active_relationships, source: :follower
+  #through: :active_relationshipsはactive_relationshipsが中間テーブルであると設定
+  #ここのfollowingsはfollowingの複数形だがフォローする側の人から見たフォローしている人達のことをfollowingと定義(元々無い)。
+  #アソシエーションのhas manyの後ろに来るのでfollowingsと記述
+  #relationshipモデルに記述したfollowingとは意味が違うので気を付けること!関係ないよ！
+
+  #source: :follower
+  #「relationshipsテーブルのfollower_idを参考にして、followingsモデルにアクセスしてね」って事。
+  #結果として、user.followings と打つだけで、user が中間テーブル relationships を取得し、
+  #その1つ1つの relationship のfollowing_idから、「フォローしている User 達」を取得することができる。
+
+  #下のように覚える
+  #foregin_key = 入口とする外部キー
+  #source = 出口とする外部キー(_idは省略)
+
   has_many :passive_relationships, class_name: "Relationship", foreign_key: :follower_id
-  # 中間テーブルを介して「following」モデルのUser(フォローする側)を集めることを「followers」と定義
   has_many :followers, through: :passive_relationships, source: :following
-  # =======================================================================================
-  
+
+
   def followed_by?(user)
     # 今自分(引数のuser)がフォローしようとしているユーザー(レシーバー)がフォローされているユーザー(つまりpassive)の中から、引数に渡されたユーザー(自分)がいるかどうかを調べる
-    #簡潔言うとフォロー済みですか？メソッド
+    #簡潔に言うとフォロー済みですか？メソッド
     passive_relationships.find_by(following_id: user.id).present?
   end
   #--ここまで--
