@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     end
 
     if params[:recipe].present? && params[:recipe][:dish].present?
-      @recipes = Recipe.where('name LIKE ?', "%#{params[:recipe][:dish]}%")
+      @recipes = Recipe.where('dish LIKE ?', "%#{params[:recipe][:dish]}%")
 
     else
       @recipes = Recipe.none

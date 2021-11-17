@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :name, presence: true#存在しますか
+  #emailのバリデーションは既に準備されていた(おそらくdevise側)
+
+
   has_many :recipes, dependent: :destroy
   #シンボルとは
   #:〇〇が付く文字列。内部で数字で保存されている。

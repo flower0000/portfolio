@@ -4,11 +4,11 @@
   </div>
 
   <div class="row">
-    <%= @users.inspect %>
+    <%#= @users.inspect %>
     <!--変数の中身を出力-->
     <!--#<ActiveRecord::Relation []>。取得できる値は無いが、#<ActiveRecord::Relation []>というデータがいる状態-->
 
-    <%= @users.class %>
+    <%#= @users.class %>
     <!--@usersに入っているデータのclass-->
     <!--classは定数のこと-->
     <!--定数:大文字で始まる識別子。Rubyの定数の概念を知ること！左辺の大文字から始まる入れ物-->
@@ -21,7 +21,7 @@
     <!--gem railsがbundle installされている状態という前提で記述されている。-->
     <!--例えばこんな機能を提供してくれている。all,find,find_by,whereなど-->
 
-    <%= @users.name %>
+    <%#= @users.name %>
     <!--@usersのclass名を参照-->
     <!--@users.classはclassを出力，@users.nameはclass名を出力。違うものなので注意すること-->
 
@@ -33,7 +33,6 @@
       <%= f.submit '検索' %>
     <% end %>
   </div>
-  <%# if @users.present? %>
     <div class="row">
       <table>
         <thead>
@@ -42,15 +41,30 @@
           </tr>
         </thead>
         <tbody>
-          <% @users.each do |user| %>
-            <tr>
-              <td><%= user.name %></td>
-            </tr>
+          <% @users.each do |user| %><!--ログイン時-->
+            <% if user_signed_in? %>
+              <% if current_user.id != user.id %><!--ログインユーザーを除外-->
+                <tr>
+                  <td>
+                    <%= link_to other_user_path(user.id) do %>
+                      <%= user.name %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %><!--未ログインユーザー-->
+              <tr>
+                <td>
+                  <%= link_to other_user_path(user.id) do %>
+                    <%= user.name %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
           <% end %>
         </tbody>
       </table>
     </div>
-  <%# end %>
 
   <div class="row" style="margin-top:100px;">
     <h3 >レシピ検索フォーム</h3>
@@ -62,7 +76,6 @@
       <%= f.submit '検索' %>
     <% end %>
   </div>
-  <%# if @recipes.present? %>
     <div class="row">
       <table>
         <thead>
@@ -71,13 +84,16 @@
           </tr>
         </thead>
         <tbody>
-          <% @recipes.each do |recipe| %>
-            <tr>
-              <td><%= recipe.dish %></td>
-            </tr>
-          <% end %>
+          <tr class="col-lg-4">
+            <% @recipes.each do |recipe| %>
+              <td>
+                <%= link_to recipe_path(recipe.id) do %>
+                  <%= attachment_image_tag recipe, :dish_photo, :fill, 300, 300, format: 'jpeg', fallback: "no_image.jpg", size:'300x300' %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
         </tbody>
       </table>
     </div>
-  <%# end %>
 </div>

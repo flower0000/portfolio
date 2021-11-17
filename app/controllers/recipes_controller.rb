@@ -54,7 +54,7 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @recipes = Recipe.all
+     @recipes = Recipe.page(params[:page]).per(9)
   end
 
   def destroy
