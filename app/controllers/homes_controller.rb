@@ -1,10 +1,10 @@
 class HomesController < ApplicationController
   def top
 
-    @rankings=Recipe.all
+    #@rankings=Recipe.all
 
     #(後日確認）最初はできていたが途中からできなくなった。
-    #@rankings = Recipe.find(Favorite.group(:recipe_id).order("count(recipe_id) desc").limit(3).pluck(:recipe_id))
+    @rankings = Recipe.find(Favorite.group(:recipe_id).order("count(recipe_id) desc").limit(3).pluck(:recipe_id))
 
 
 

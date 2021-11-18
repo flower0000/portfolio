@@ -16,7 +16,15 @@
 
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
-//= require_tree .
 
+//= require_tree .
 //= require cocoon
+
+
+
+/* global $*/
+$(function(){
+  $('.about-img').slideDown();
+});
+// application.jsの記述内でrequire turbolinksによってアプリ使用するとき(js,viewファイルなど)の動作が早くなる。
+// ただし、jqueryと相性が悪くjavascriptの挙動がおかしくなることがある。

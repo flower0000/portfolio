@@ -8,13 +8,17 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
     #recipe_ingredientsとhow_to_makesはviewで記述はないが他のモデルのパラメータを同時に保存できている
+
     if @recipe.save
       redirect_to recipe_path(@recipe.id)
     else
-      @recipe = Recipe.new
-      @recipe_ingredients = @recipe.recipe_ingredients.build
-      @how_to_makes = @recipe.how_to_makes.build
+      #@recipe = Recipe.new
+      #@recipe_ingredients = @recipe.recipe_ingredients.build
+      #@how_to_makes = @recipe.how_to_makes.build
+      #上3行の記述があると失敗するたびにフォームの入力内容が消去される
+
       render :new
+      #renderのみであれば失敗しても失敗した時の入力データは残る
     end
   end
 
@@ -66,7 +70,7 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:user_id, :time, :money, :dish_photo_id, :dish,
+    params.require(:recipe).permit(:user_id, :time, :money, :dish_photo, :dish,
                                   recipe_ingredients_attributes:[:id, :material, :quantity, :_destroy],
                                   how_to_makes_attributes:[:id, :introduction, :order_no, :_destroy])
   end
@@ -75,4 +79,7 @@ end
 #recipe_ingredients_attributes:の記述の仕方
 #recipeモデルアソシエーションが複数ならrecipe_ingredients(複数形)で記述．_attributesはいつでも複数形。
 #:idもrecipe_ingredientのデータを，どのデータで上書きしたらいいか判断するために必要
-#:_destroyは削除用のボタンの
+#:_destroyは削除用のボタンの記述
+
+#cocoonのgemによってストロングパラメータのpermit内のrecipe_ingredients_attributes:の_attributes:記述で
+#belongs_to recipeの記述によって外部キー（今回はrecipe_id）を送ってくれる記述におそらくなっている。

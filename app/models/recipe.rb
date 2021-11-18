@@ -1,9 +1,9 @@
 class Recipe < ApplicationRecord
   belongs_to :user, optional: true
-  has_many :favorites
-  has_many :reviews
-  has_many :how_to_makes
-  has_many :recipe_ingredients
+  has_many :favorites, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  has_many :how_to_makes, dependent: :destroy
+  has_many :recipe_ingredients, dependent: :destroy
 
   accepts_nested_attributes_for :recipe_ingredients, :how_to_makes, allow_destroy: true
   #accepts_nested_attributes_forを使用することで、指定したモデルのデータを配列としてパラメーターに含めることができる。
