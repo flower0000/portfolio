@@ -12,6 +12,9 @@ class Recipe < ApplicationRecord
 
   attachment :dish_photo
 
+  validates :dish, presence: true#存在しますか
+  validates :time, presence: true#存在しますか
+  validates :money, presence: true#存在しますか
 
   def favorited_by?(user)#ここの書き方を後で復習→OK
     favorites.where(user_id: user.id).exists?

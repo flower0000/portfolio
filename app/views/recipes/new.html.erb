@@ -1,5 +1,20 @@
 <div class="container">
-  <h4 class="mt-3 mb-3">レシピ投稿</h4>
+
+<!--エラーメッセージ-->
+  <div class="row">
+    <% if @recipe.errors.any? %>
+      <div class = "alert">
+        <ul>
+          <% @recipe.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+<!--エラーメッセージここまで-->
+
+  <h4 class="mb-3">レシピ投稿</h4>
   <div class="recipe-post">
     <%= form_with model: @recipe, url: recipes_path, local: true do |f| %>
       <div class="row">
